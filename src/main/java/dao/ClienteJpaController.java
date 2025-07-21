@@ -137,5 +137,46 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public Cliente buscarClientePorDni(String ndniClie) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cliente.findByNdniClie");
+            query.setParameter("ndniClie", ndniClie);
+            List<Cliente> result = query.getResultList();
+            return result.isEmpty() ? null : result.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
+    public Cliente validarCliente(String ndniClie, String passClie) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cliente.validar");
+            query.setParameter("ndniClie", ndniClie);
+            query.setParameter("passClie", passClie);
+            List<Cliente> result = query.getResultList();
+            return result.isEmpty() ? null : result.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void main(String[] args) {
+        String dni = "73645123";
+        String pass = "1234";
+
+        ClienteJpaController controller = new ClienteJpaController();
+        Cliente cliente = controller.validarCliente(dni, pass);
+
+        if (cliente != null) {
+            System.out.println("✅ Cliente válido:");
+            System.out.println("Nombre completo: " + cliente.getMombClie() + " " + cliente.getAppaClie() + " " + cliente.getApmaClie());
+            System.out.println("Login: " + cliente.getLogiClie());
+        } else {
+            System.out.println("❌ Cliente no válido. DNI o contraseña incorrectos.");
+        }
+    }
+
 }
