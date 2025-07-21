@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cliente.findByMombClie", query = "SELECT c FROM Cliente c WHERE c.mombClie = :mombClie"),
     @NamedQuery(name = "Cliente.findByFechNaciClie", query = "SELECT c FROM Cliente c WHERE c.fechNaciClie = :fechNaciClie"),
     @NamedQuery(name = "Cliente.findByLogiClie", query = "SELECT c FROM Cliente c WHERE c.logiClie = :logiClie"),
+    @NamedQuery(name = "Cliente.validar", query = "SELECT c FROM Cliente c WHERE c.ndniClie = :ndniClie and c.passClie = :passClie"),
     @NamedQuery(name = "Cliente.findByPassClie", query = "SELECT c FROM Cliente c WHERE c.passClie = :passClie")})
 public class Cliente implements Serializable {
 
